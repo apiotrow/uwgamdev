@@ -39,7 +39,7 @@ public class BtnClickSetup : MonoBehaviour {
 
 	}
 	void Update(){
-//		print(SelectionManager.bankBtnNow.gameObject.GetInstanceID());
+//		print(SelectionManager.bankBtnNow.GetInstanceID());
 	}
 	
 }
