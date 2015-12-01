@@ -7,9 +7,24 @@ public class ZobitController : MonoBehaviour {
 	Vector3 destination;
 	Vector3 startingPosition;
 	Vector3 startingForwardRotation;
-	public List<Vector3> moveList;
+	List<Vector3> moveList;
 	int moveListIndex;
 	bool moving;
+	string nextMove;
+	float moveDistanceMultiplier = 1f;
+	float speedMultiplier = 2f;
+
+	public Dictionary<string, Vector3> moveDic = new Dictionary<string, Vector3>(){
+		{"UR", new Vector3(1f, 0f, 0f)},
+		{"DL", new Vector3(-1f, 0f, 0f)},
+		{"UL", new Vector3(0f, 0f, 1f)},
+		{"DR", new Vector3(0f, 0f, -1f)},
+		{"D", new Vector3(0f, 0f, -.5f)},
+		{"R", new Vector3(.5f, 0f, -.5f)},
+		{"U", new Vector3(.5f, 0f, .5f)},
+		{"L", new Vector3(-.5f, 0f, .5f)},
+		{"leap", new Vector3(0f, 1f, 0f)}
+	};
 	
 	void Start () {
 		anim = this.gameObject.GetComponent<Animator>();
@@ -21,8 +36,11 @@ public class ZobitController : MonoBehaviour {
 	void Update () {
 		if(moving){
 			this.transform.forward = Vector3.RotateTowards(transform.forward, transform.position - destination, Time.deltaTime * 10f, 0f);
-			Vector3 moveVec = destination - transform.position;
-			this.transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * 2f);
+			this.transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * speedMultiplier);
+
+//			Vector3 moveVec = destination - transform.position;
+//			moveVec.y = transform.position.y;
+//			this.GetComponent<CharacterController>().SimpleMove(moveVec);
 		}
 	}
 
@@ -36,21 +54,22 @@ public class ZobitController : MonoBehaviour {
 					moving = false;
 					yield break;
 				}else{
-					destination = transform.position + moveList[++moveListIndex];
+					destination = transform.position + (moveList[++moveListIndex] * moveDistanceMultiplier);
 				}
 			}
 			yield return null;
 		}
 	}
-
-	//initiates movement. called when play button is pressed
+	
+	//initiates movement. called when play button is pressed,
+	//Vector3 version
 	public void executeScript(List<Vector3> ml){
 		if(ml.Count > 0){
 			anim.SetBool("walking", true);
 			moveList = ml;
 			moveListIndex = 0;
 			transform.position = startingPosition;
-			destination = transform.position + moveList[moveListIndex];
+			destination = transform.position + (moveList[moveListIndex] * moveDistanceMultiplier);
 			moving = true;
 			StartCoroutine ("moveZobitToDestination");
 		}

@@ -8,12 +8,7 @@ public class BtnClickSetup : MonoBehaviour {
 	public List<Button> bankBtns;
 	public float moveDistance = 2f;
 
-	public Dictionary<string, Vector3> moveDic = new Dictionary<string, Vector3>(){
-		{"UR", new Vector3(1f, 0f, 0f)},
-		{"DL", new Vector3(-1f, 0f, 0f)},
-		{"UL", new Vector3(0f, 0f, 1f)},
-		{"DR", new Vector3(0f, 0f, -1f)}
-	};
+
 
 	void Start () {
 		scriptBtns = new List<Button>();
@@ -56,24 +51,31 @@ public class BtnClickSetup : MonoBehaviour {
 		//set up play/execute script button
 		GameObject.Find("PlayButton").GetComponent<Button>().onClick.AddListener(() => {
 			List<Vector3> moveList = new List<Vector3>();
+			ZobitController zobitC = GameObject.Find("Zobit").GetComponent<ZobitController>();
 
 			for(int i = 0; i < scriptBtns.Count; i++){
-				if(scriptBtns[i].GetComponent<Image>().sprite.name != null){
+				if(scriptBtns[i].GetComponent<Image>().sprite.name != "nothingicon"){
 					string moveName = scriptBtns[i].GetComponent<Image>().sprite.name;
-					if(moveDic.ContainsKey(moveName))
-						moveList.Add(moveDic[moveName]);
+					if(zobitC.moveDic.ContainsKey(moveName))
+						moveList.Add(zobitC.moveDic[moveName]);
 					else
 						print("moveDic doens't have key: " + moveName);
 				}
 			}
 
-			GameObject zobit = GameObject.Find("Zobit");
-			zobit.GetComponent<ZobitController>().executeScript(moveList);
+			zobitC.executeScript(moveList);
 		});
 
 		GameObject.Find("ResetButton").GetComponent<Button>().onClick.AddListener(() => {
 			GameObject zobit = GameObject.Find("Zobit");
 			zobit.GetComponent<ZobitController>().reset();
+		});
+
+		GameObject.Find("DeleteButton").GetComponent<Button>().onClick.AddListener(() => {
+			for(int i = 0; i < scriptBtns.Count; i++){
+				Sprite randCommandSprite = null;
+				scriptBtns[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/nothingicon") as Sprite;
+			}
 		});
 
 
@@ -99,7 +101,6 @@ public class BtnClickSetup : MonoBehaviour {
 				while(randCommandSprite == null){
 					randCommandSprite = bankBtns[(int)Random.Range(0, bankBtns.Count)].transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite;
 				}
-
 				scriptBtns[i].GetComponent<Image>().sprite = randCommandSprite;
 			}
 		});
