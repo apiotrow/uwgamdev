@@ -1,0 +1,22 @@
+﻿#pragma once
+
+#include "il2cpp-config.h"
+
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
+
+#include <stdint.h>
+#include <assert.h>
+#include <exception>
+
+struct t1468;
+struct t1466;
+struct t1463;
+
+#include "codegen/il2cpp-codegen.h"
+
+extern "C" void m8763 (t1468 * __this, t1466 * p0, int32_t p1, t1466 * p2, const MethodInfo* method) IL2CPP_METHOD_ATTR;
+extern "C" void m8764 (t1468 * __this, t1463 * p0, const MethodInfo* method) IL2CPP_METHOD_ATTR;
