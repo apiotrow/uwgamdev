@@ -11,50 +11,32 @@ public static class SelectionManager {
 
 	public static ColorBlock initColorBlock;
 
+	public static void tapBtn(Button btn, string type){
 
-	public static void selectScriptBtn(Button btn){
-		//if we're clicking a button that's already selected, unselect
+		//if we're clicking a button that's already selected, unselect it
 		if(btnNowInstanceID == btn.GetInstanceID()){
 			deselectSelected(btn);
-		}else if(selectedBtnType == "BankBtns"){
-			btn.gameObject.GetComponent<Image>().sprite = 
-				selectedBtn.transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite;
-			resetSelection(btn);
-		}else{
-			selectedBtn = btn;
-			btnNowInstanceID = selectedBtn.GetInstanceID();
-			selectedBtnType = "ScriptBtns";
 
-			selectColors(btn);
-			deselectAllBesidesCurrent("ScriptBtns");
+		//if a script button is selected and we've just tapped a bank button
+		//assign the script button the bank button's icon
+		}else if(type == "BankBtns" && selectedBtnType == "ScriptBtns"){
+				selectedBtn.gameObject.GetComponent<Image>().sprite = 
+					btn.transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite;
+			resetSelection(btn);
+
+		//if a bank button is selected and we've just tapped a script button
+		//assign the script button the bank button's icon
+		}else if(type == "ScriptBtns" && selectedBtnType == "BankBtns"){
+				btn.gameObject.GetComponent<Image>().sprite = 
+					selectedBtn.transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite;
+			resetSelection(btn);
+
+		//if nothing is selected at all, just select the button that was tapped
+		}else{
+			selectNewButton(btn, type);
 		}
 	}
 
-	public static void selectBankBtn(Button btn){
-		//if we're clicking a button that's already selected, unselec
-		if(btnNowInstanceID == btn.GetInstanceID()){
-			deselectSelected(btn);
-		}else if(selectedBtnType == "ScriptBtns"){
-			selectedBtn.gameObject.GetComponent<Image>().sprite = 
-				btn.transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite;
-			resetSelection(btn);
-		}else{
-			selectedBtn = btn;
-			btnNowInstanceID = selectedBtn.GetInstanceID();
-			selectedBtnType = "BankBtns";
-		
-			selectColors(btn);
-			deselectAllBesidesCurrent("BankBtns");
-		}
-	}
-
-	static void selectColors(Button btn){
-		//give this button selected colors
-		ColorBlock cb = btn.colors;
-		cb.normalColor = Color.red;
-		cb.highlightedColor = Color.red;
-		btn.colors = cb;
-	}
 
 	static void resetSelection(Button btn){
 		selectedBtn.colors = initColorBlock;
@@ -69,6 +51,22 @@ public static class SelectionManager {
 		btnNowInstanceID = -3;
 		selectedBtnType = "";
 		btn.colors = initColorBlock;
+	}
+
+	static void selectNewButton(Button btn, string type){
+		selectedBtn = btn;
+		btnNowInstanceID = selectedBtn.GetInstanceID();
+		selectedBtnType = type;
+		selectColors(btn);
+		deselectAllBesidesCurrent(type);
+	}
+	
+	static void selectColors(Button btn){
+		//give this button selected colors
+		ColorBlock cb = btn.colors;
+		cb.normalColor = Color.red;
+		cb.highlightedColor = Color.red;
+		btn.colors = cb;
 	}
 
 	static void deselectAllBesidesCurrent(string type){

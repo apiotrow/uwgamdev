@@ -18,7 +18,7 @@ public class BtnClickSetup : MonoBehaviour {
 			Transform ch = btnsGO.transform.GetChild(i);
 			Button btn = ch.transform.Find("BG").gameObject.GetComponent<Button>();
 			btn.onClick.AddListener(() => {
-				SelectionManager.selectScriptBtn(btn);
+				SelectionManager.tapBtn(btn, "ScriptBtns");
 			});
 			scriptBtns.Add(btn);
 
@@ -31,7 +31,7 @@ public class BtnClickSetup : MonoBehaviour {
 			Transform ch = btnsGO.transform.GetChild(i);
 			Button btn = ch.transform.Find("BG").gameObject.GetComponent<Button>();
 			btn.onClick.AddListener(() => {
-				SelectionManager.selectBankBtn(btn);
+				SelectionManager.tapBtn(btn, "BankBtns");
 			});
 			bankBtns.Add(btn);
 		}
