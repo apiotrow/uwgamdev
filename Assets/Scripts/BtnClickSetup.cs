@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class BtnClickSetup : MonoBehaviour {
 	public List<Button> scriptBtns;
 	public List<Button> bankBtns;
+	public float moveDistance = 2f;
 
 	public Dictionary<string, Vector3> moveDic = new Dictionary<string, Vector3>(){
 		{"UR", new Vector3(1f, 0f, 0f)},
@@ -57,7 +58,7 @@ public class BtnClickSetup : MonoBehaviour {
 			List<Vector3> moveList = new List<Vector3>();
 
 			for(int i = 0; i < scriptBtns.Count; i++){
-				if(scriptBtns[i].GetComponent<Image>().sprite.name != "UISprite"){
+				if(scriptBtns[i].GetComponent<Image>().sprite.name != null){
 					string moveName = scriptBtns[i].GetComponent<Image>().sprite.name;
 					if(moveDic.ContainsKey(moveName))
 						moveList.Add(moveDic[moveName]);

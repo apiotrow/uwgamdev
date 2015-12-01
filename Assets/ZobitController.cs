@@ -45,13 +45,15 @@ public class ZobitController : MonoBehaviour {
 
 	//initiates movement. called when play button is pressed
 	public void executeScript(List<Vector3> ml){
-		anim.SetBool("walking", true);
-		moveList = ml;
-		moveListIndex = 0;
-		transform.position = startingPosition;
-		destination = transform.position + moveList[moveListIndex];
-		moving = true;
-		StartCoroutine ("moveZobitToDestination");
+		if(ml.Count > 0){
+			anim.SetBool("walking", true);
+			moveList = ml;
+			moveListIndex = 0;
+			transform.position = startingPosition;
+			destination = transform.position + moveList[moveListIndex];
+			moving = true;
+			StartCoroutine ("moveZobitToDestination");
+		}
 	}
 
 	//stops script execution and resets zobit to starting position and rotation
