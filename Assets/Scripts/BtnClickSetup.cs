@@ -36,6 +36,19 @@ public class BtnClickSetup : MonoBehaviour {
 			bankBtns.Add(btn);
 		}
 
+		GameObject.Find("PlayButton").GetComponent<Button>().onClick.AddListener(() => {
+			List<Vector3> moveList = new List<Vector3>();
+			GameObject zobit = GameObject.Find("Zobit");
+			moveList.Add(new Vector3(-24f, 0.5f, -3f));
+			moveList.Add(new Vector3(-24f, 0.5f, -4f));
+			moveList.Add(new Vector3(-23f, 0.5f, -4f));
+			zobit.GetComponent<ZobitController>().executeScript(moveList);
+		});
+
+		GameObject.Find("ResetButton").GetComponent<Button>().onClick.AddListener(() => {
+			GameObject zobit = GameObject.Find("Zobit");
+			zobit.GetComponent<ZobitController>().reset();
+		});
 
 	}
 	void Update(){
