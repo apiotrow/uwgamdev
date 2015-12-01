@@ -1,11 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ZobitController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BtnClickSetup.cs">
     <Files>
-      <File FileName="Assets/Scripts/BtnClickSetup.cs" Line="71" Column="3" />
-      <File FileName="Assets/Scripts/SelectionManager.cs" Line="29" Column="87" />
-      <File FileName="Assets/ZobitController.cs" Line="58" Column="52" />
-      <File FileName="Assets/Editor/TextureToPixelMeshWizard.cs" Line="246" Column="1" />
+      <File FileName="Assets/Scripts/BtnClickSetup.cs" Line="94" Column="37" />
+      <File FileName="Assets/Scripts/SelectionManager.cs" Line="22" Column="79" />
+      <File FileName="Assets/ZobitController.cs" Line="11" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

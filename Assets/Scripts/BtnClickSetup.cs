@@ -32,14 +32,23 @@ public class BtnClickSetup : MonoBehaviour {
 			SelectionManager.initColorBlock = btn.colors;
 		}
 
+
+
 		//set up bank buttons
+		//	populate bank button with sprites from resources/sprites/arrows
 		btnsGO = GameObject.Find("BankBtns");
+		Sprite[] arrowSprites = System.Array.ConvertAll(Resources.LoadAll("Sprites/Arrows", typeof(Sprite)),o=>(Sprite)o);
 		for(int i = 0; i < btnsGO.transform.childCount; i++){
 			Transform ch = btnsGO.transform.GetChild(i);
 			Button btn = ch.transform.Find("BG").gameObject.GetComponent<Button>();
 			btn.onClick.AddListener(() => {
 				SelectionManager.tapBtn(btn, "BankBtns");
 			});
+
+			//assign it a sprite from the array
+			if(i < arrowSprites.Length)
+				btn.transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite = arrowSprites[i];
+
 			bankBtns.Add(btn);
 		}
 
@@ -82,8 +91,13 @@ public class BtnClickSetup : MonoBehaviour {
 		GameObject.Find("debug_fillin").GetComponent<Button>().onClick.AddListener(() => {
 			//set up script buttons
 			for(int i = 0; i < scriptBtns.Count; i++){
-				Sprite randCommandSprite = 
-					bankBtns[(int)Random.Range(0, bankBtns.Count)].transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite;
+				Sprite randCommandSprite = null;
+
+				//assign a random sprite from the bank. if the bank button doesn't have
+				//a sprite, try another one until you get one that isn't null
+				while(randCommandSprite == null){
+					randCommandSprite = bankBtns[(int)Random.Range(0, bankBtns.Count)].transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite;
+				}
 
 				scriptBtns[i].GetComponent<Image>().sprite = randCommandSprite;
 			}
