@@ -7,6 +7,13 @@ public class BtnClickSetup : MonoBehaviour {
 	public List<Button> scriptBtns;
 	public List<Button> bankBtns;
 
+	public Dictionary<string, Vector3> moveDic = new Dictionary<string, Vector3>(){
+		{"UR", new Vector3(1f, 0f, 0f)},
+		{"DL", new Vector3(-1f, 0f, 0f)},
+		{"UL", new Vector3(0f, 0f, 1f)},
+		{"DR", new Vector3(0f, 0f, -1f)}
+	};
+
 	void Start () {
 		scriptBtns = new List<Button>();
 		bankBtns = new List<Button>();
@@ -38,10 +45,18 @@ public class BtnClickSetup : MonoBehaviour {
 
 		GameObject.Find("PlayButton").GetComponent<Button>().onClick.AddListener(() => {
 			List<Vector3> moveList = new List<Vector3>();
+
+			for(int i = 0; i < scriptBtns.Count; i++){
+				if(scriptBtns[i].GetComponent<Image>().sprite.name != "UISprite"){
+					string moveName = scriptBtns[i].GetComponent<Image>().sprite.name;
+					if(moveDic.ContainsKey(moveName))
+						moveList.Add(moveDic[moveName]);
+					else
+						print("moveDic doens't have key: " + moveName);
+				}
+			}
+
 			GameObject zobit = GameObject.Find("Zobit");
-			moveList.Add(new Vector3(-24f, 0.5f, -3f));
-			moveList.Add(new Vector3(-24f, 0.5f, -4f));
-			moveList.Add(new Vector3(-23f, 0.5f, -4f));
 			zobit.GetComponent<ZobitController>().executeScript(moveList);
 		});
 

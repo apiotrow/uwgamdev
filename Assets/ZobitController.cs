@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 public class ZobitController : MonoBehaviour {
 	Vector3 destination;
-	int moveListIndex;
-	List<Vector3> moveList;
-	bool moving;
 	Vector3 startingPosition;
+	public List<Vector3> moveList;
+	int moveListIndex;
+
+	bool moving;
+
 
 	void Start () {
 		moveList = new List<Vector3>();
@@ -17,7 +19,8 @@ public class ZobitController : MonoBehaviour {
 	public void executeScript(List<Vector3> ml){
 		moveList = ml;
 		moveListIndex = 0;
-		destination = moveList[moveListIndex];
+		transform.position = startingPosition;
+		destination = transform.position + moveList[moveListIndex];
 		moving = true;
 		StartCoroutine ("moveZobitToDestination");
 	}
@@ -31,7 +34,6 @@ public class ZobitController : MonoBehaviour {
 
 	void Update () {
 		if(moving){
-			print (destination);
 			Vector3 moveVec = destination - transform.position;
 			this.transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * 2f);
 		}
@@ -40,12 +42,12 @@ public class ZobitController : MonoBehaviour {
 	IEnumerator moveZobitToDestination ()
 	{
 		while (true) {
-			if ((transform.position - destination).magnitude < .1f) {
+			if ((transform.position - destination).magnitude < .01f) {
 				if(moveListIndex == moveList.Count - 1){
 					moving = false;
 					yield break;
 				}else{
-					destination = moveList[++moveListIndex];
+					destination = transform.position + moveList[++moveListIndex];
 				}
 			}
 			yield return null;

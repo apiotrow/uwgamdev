@@ -6,9 +6,7 @@ using System.Collections.Generic;
 public static class SelectionManager {
 	public static Button selectedBtn;
 	public static string selectedBtnType = "";
-
 	public static int btnNowInstanceID = -3;
-
 	public static ColorBlock initColorBlock;
 
 	public static void tapBtn(Button btn, string type){
