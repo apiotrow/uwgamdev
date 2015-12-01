@@ -65,6 +65,29 @@ public class BtnClickSetup : MonoBehaviour {
 			zobit.GetComponent<ZobitController>().reset();
 		});
 
+
+
+
+
+
+		//
+		//
+		//
+		//DEBUG CRAP
+		//
+		//
+
+		//fill in script with random values
+		GameObject.Find("debug_fillin").GetComponent<Button>().onClick.AddListener(() => {
+			//set up script buttons
+			for(int i = 0; i < scriptBtns.Count; i++){
+				Sprite randCommandSprite = 
+					bankBtns[(int)Random.Range(0, bankBtns.Count)].transform.parent.Find("Icon").gameObject.GetComponent<Image>().sprite;
+
+				scriptBtns[i].GetComponent<Image>().sprite = randCommandSprite;
+			}
+		});
+
 	}
 	void Update(){
 //		print(SelectionManager.bankBtnNow.GetInstanceID());
