@@ -43,6 +43,7 @@ public class BtnClickSetup : MonoBehaviour {
 			bankBtns.Add(btn);
 		}
 
+		//set up play/execute script button
 		GameObject.Find("PlayButton").GetComponent<Button>().onClick.AddListener(() => {
 			List<Vector3> moveList = new List<Vector3>();
 

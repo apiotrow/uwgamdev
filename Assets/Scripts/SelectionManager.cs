@@ -35,7 +35,6 @@ public static class SelectionManager {
 		}
 	}
 
-
 	static void resetSelection(Button btn){
 		selectedBtn.colors = initColorBlock;
 		selectedBtnType = "";
