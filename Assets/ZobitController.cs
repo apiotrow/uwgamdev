@@ -38,9 +38,18 @@ public class ZobitController : MonoBehaviour {
 			this.transform.forward = Vector3.RotateTowards(transform.forward, transform.position - destination, Time.deltaTime * 10f, 0f);
 			this.transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * speedMultiplier);
 
-//			Vector3 moveVec = destination - transform.position;
+//			Vector3 one = transform.position;
+//			one.y = 0f;
+//			Vector3 two = destination;
+//			destination.y = 0f;
+//
+//			this.transform.forward = Vector3.RotateTowards(transform.forward, one - two, Time.deltaTime * 10f, 0f);
+////			Vector3 moveVec = destination - transform.position;
+//			Vector3 moveVec = two - one;
 //			moveVec.y = transform.position.y;
-//			this.GetComponent<CharacterController>().SimpleMove(moveVec);
+//			moveVec = moveVec.normalized;
+//			this.GetComponent<CharacterController>().SimpleMove(moveVec * 3f);
+
 		}
 	}
 
@@ -48,6 +57,12 @@ public class ZobitController : MonoBehaviour {
 	IEnumerator moveZobitToDestination ()
 	{
 		while (true) {
+//			Vector3 one = transform.position;
+//			one.y = 0f;
+//			Vector3 two = destination;
+//			destination.y = 0f;
+
+//			if ((one - two).magnitude < .01f) {
 			if ((transform.position - destination).magnitude < .01f) {
 				if(moveListIndex == moveList.Count - 1){
 					anim.SetBool("walking", false);
