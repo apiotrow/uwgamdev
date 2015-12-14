@@ -56,12 +56,33 @@ public class BtnClickSetup : MonoBehaviour {
 			for(int i = 0; i < scriptBtns.Count; i++){
 				if(scriptBtns[i].GetComponent<Image>().sprite.name != "nothingicon"){
 					string moveName = scriptBtns[i].GetComponent<Image>().sprite.name;
-					if(zobitC.moveDic.ContainsKey(moveName))
-						moveList.Add(zobitC.moveDic[moveName]);
-					else
-						print("moveDic doens't have key: " + moveName);
+					//commented out just for mockup
+//					if(zobitC.moveDic.ContainsKey(moveName))
+//						moveList.Add(zobitC.moveDic[moveName]);
+//					else
+//						print("moveDic doens't have key: " + moveName);
 				}
+
 			}
+			moveList.Add(new Vector3(0f, 0f, -1f));
+			moveList.Add(new Vector3(0f, 0f, -1f));
+			moveList.Add(new Vector3(0f, 0f, -1f));
+			moveList.Add(new Vector3(0f, 0f, -1f));
+			moveList.Add(new Vector3(0f, 0f, -1f));
+
+			moveList.Add(new Vector3(1f, 0f, 0f));
+			moveList.Add(new Vector3(1f, 0f, 0f));
+			moveList.Add(new Vector3(1f, 0f, 0f));
+			moveList.Add(new Vector3(1f, 0f, 0f));
+			moveList.Add(new Vector3(1f, 0f, 0f));
+			moveList.Add(new Vector3(1f, 0f, 0f));
+
+			moveList.Add(new Vector3(0f, 0f, 1f));
+			moveList.Add(new Vector3(0f, 0f, 1f));
+			moveList.Add(new Vector3(0f, 0f, 1f));
+			moveList.Add(new Vector3(0f, 0f, 1f));
+			moveList.Add(new Vector3(0f, 0f, 1f));
+			moveList.Add(new Vector3(0f, 0f, 1f));
 
 			zobitC.executeScript(moveList);
 		});
